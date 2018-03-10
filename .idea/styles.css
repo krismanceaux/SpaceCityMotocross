@@ -1,0 +1,13 @@
+#map{
+    width: 75%;
+    height: 500px;
+    background-color: grey;
+    margin-left: auto;
+    margin-right: auto;
+}
+h1{
+    text-align: center;
+}
+h3{
+    text-align: center;
+}

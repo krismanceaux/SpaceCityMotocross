@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Space City Motocross</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="script.js"></script>
+
+</head>
+<body>
+    <h1>Welcome to your hub for Motocross in Houston!</h1>
+    <h3>Below is a map of tracks local to the area.</h3>
+
+    <div id="map"></div>
+
+    <!-- Called by the callback at the bottom of the body tag, initializes the map to a specific longitude and latitude  -->
+    <script>
+        function initMap() {
+            var houston = {lat: 29.7604, lng: -95.3698};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 9,
+                center: houston
+                
+            });
+            var geocoder = new google.maps.Geocoder;
+            var infowindow = new google.maps.InfoWindow;
+            var addresses = ["11610 N Lake Houston Pkwy, Houston, TX 77044", "15100 Interstate 45 S, Conroe, TX 77384","11501 FM 2100, Highlands, TX 77562",
+            "1836 Algoa-Friendswood Rd., Alvin, TX", "6730 Williams School Road, Needville, TX 77461", "577 County Road 3663, Splendora, Texas 77372"];
+            for(i = 0; i < addresses.length; i++){
+                geocoder.geocode({address: addresses[i]}, function(results, status) {
+                    var marker = new google.maps.Marker({
+                        position: results[0].geometry.location,
+                        map: map
+                    })
+
+                });
+
+            }
+
+//            var markerRio = new google.maps.Marker({
+//                position: rio['geometry']['location'],
+//                map: map
+//            });
+        }
+
+    </script>
+
+
+
+
+    <!-- js code provided by the Google API, This is required to be at the bottom of the body tag and needs to have your specific API key
+          This calls-back the initMap() function -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATh6HWMX47KZgSqu7WbNdFfvJXOK6SI2Q&callback=initMap"
+            type="text/javascript"></script>
+    <!-- These are the CDN js scripts for bootstrap, popper, and jquery. These are required at the bottom of the body tag. -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
