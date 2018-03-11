@@ -17,34 +17,7 @@
 
     <!-- Called by the callback at the bottom of the body tag, initializes the map to a specific longitude and latitude  -->
     <script>
-        function initMap() {
-            var houston = {lat: 29.7604, lng: -95.3698};
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 9,
-                center: houston
-                
-            });
-            var geocoder = new google.maps.Geocoder;
-            var infowindow = new google.maps.InfoWindow;
-            var addresses = ["11610 N Lake Houston Pkwy, Houston, TX 77044", "15100 Interstate 45 S, Conroe, TX 77384","11501 FM 2100, Highlands, TX 77562",
-            "1836 Algoa-Friendswood Rd., Alvin, TX", "6730 Williams School Road, Needville, TX 77461", "577 County Road 3663, Splendora, Texas 77372"];
-            for(i = 0; i < addresses.length; i++){
-                geocoder.geocode({address: addresses[i]}, function(results, status) {
-                    var marker = new google.maps.Marker({
-                        position: results[0].geometry.location,
-                        map: map
-                    })
-
-                });
-
-            }
-
-//            var markerRio = new google.maps.Marker({
-//                position: rio['geometry']['location'],
-//                map: map
-//            });
-        }
-
+        initMap();
     </script>
 
 
