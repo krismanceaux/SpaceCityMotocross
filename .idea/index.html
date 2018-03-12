@@ -10,14 +10,155 @@
 
 </head>
 <body>
-    <h1>Welcome to your hub for Motocross in Houston!</h1>
-    <h3>Below is a map of tracks local to the area.</h3>
+    <div class="jumbotron" style="margin-bottom: 0px;">
+        <h1>Space City Motocross</h1>
+        <p>Welcome to your hub for Motocross in Houston!<br>
+            Below is a map of tracks local to the area.</p>
+    </div>
 
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark sticky-top">
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#collapse_target">
+            <span class="navbar-toggler-icon">
+
+            </span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapse_target">
+            <!--<a class="navbar-brand"><img src="icons/spaceCity.JPG"></a>-->
+            <span class="navbar-text">Quick links</span>
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="droppdown" data-target="dropdown_target" href="#">Rio Bravo
+                    <span class="caret"></span>
+                    </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown_target">
+                        <a class="dropdown-item">Events</a>
+                        <a class="dropdown-item">News</a>
+                        </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="droppdown" data-target="dropdown_target" href="#">3 Palms</a>
+                    <span class="caret"></span>
+                    <div class="dropdown-menu" aria-labelledby="dropdown_target">
+                        <a class="dropdown-item">Events</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item">News</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="droppdown" data-target="dropdown_target" href="#">Splendora</a>
+                    <span class="caret"></span>
+                    <div class="dropdown-menu" aria-labelledby="dropdown_target">
+                        <a class="dropdown-item">Events</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item">News</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="droppdown" data-target="dropdown_target" href="#">Southwest</a>
+                    <span class="caret"></span>
+                    <div class="dropdown-menu" aria-labelledby="dropdown_target">
+                        <a class="dropdown-item">Events</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item">News</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="droppdown" data-target="dropdown_target" href="#">Ultimate</a>
+                    <span class="caret"></span>
+                    <div class="dropdown-menu" aria-labelledby="dropdown_target">
+                        <a class="dropdown-item">Events</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item">News</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--<a class="nav-link active" href="#">Rio Bravo</a>-->
+        <!--<a class="nav-link active" href="#">Three Palms</a>-->
+        <!--<a class="nav-link active" href="#">Ultimate MX</a>-->
+        <!--<a class="nav-link active" href="#">Southwest MX</a>-->
+        <!--<a class="nav-link active" href="#">Splendora MX</a>-->
+
+    </nav>
     <div id="map"></div>
 
     <!-- Called by the callback at the bottom of the body tag, initializes the map to a specific longitude and latitude  -->
     <script>
-        initMap();
+        function initMap() {
+            var houston = {lat: 29.7604, lng: -95.3698};
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 9,
+                center: houston
+
+            });
+
+            var infowindow = new google.maps.InfoWindow;
+
+            //create a function that passes the information in a dictionary format to addresses
+            var info = {
+                "Rio" : {"address" : "11610 N Lake Houston Pkwy, Houston, TX 77044",
+                            "hours" : "9 - 6", "loc" : [29.8901756, -95.2362651]},
+                "Three Palms" : {"address" : "15100 Interstate 45 S, Conroe, TX 77384",
+                            "hours" : "9 - 8", "loc" : [30.2420015, -95.4598329]},
+                "Ultimate MX" : {"address" : "1836 Algoa-Friendswood Rd., Alvin, TX",
+                            "hours" : "9 - 8", "loc": [29.4243540, -95.1734070]},
+                "Southwest MX" : {"address" : "6730 Williams School Road, Needville, TX 77461",
+                         "hours" : "9 - 8", "loc": [29.4435278, -95.8375413]},
+                "Splendora MX" : {"address" : "577 County Road 3663, Splendora, Texas 77372",
+                            "hours" : "9 - 6", "loc":[30.2313244, -95.1132031]}};
+
+
+
+            for(i in info){
+                addMarker(i, info[i]['loc'], map);
+            }
+        }
+
+        function addMarker(track, loc, map){
+            var infowindow = new google.maps.InfoWindow({
+                content: "<h3>" + track + "</h3>"
+            });
+            var icon = {
+                url: "", // url
+                scaledSize: new google.maps.Size(50, 25), // scaled size
+                origin: new google.maps.Point(0,0), // origin
+                anchor: new google.maps.Point(0, 0) // anchor
+            };
+            if(track === 'Rio'){
+                icon.url = "icons/rioLogo.JPG";
+            }
+            else if(track === 'Three Palms'){
+                icon.url = "icons/3pLogo.JPG";
+            }
+            else if(track === 'Splendora MX'){
+                icon.url = "icons/splendora.JPG"
+            }
+            else if(track === 'Ultimate MX'){
+                icon.url = "icons/ultimate.JPG"
+            }
+//            else if(track === 'Southwest MX'){
+//                icon.url = "icons/southwest.JPG"
+//            }
+            if(icon.url == "") {
+                var marker = new google.maps.Marker({
+                    position: {lat: loc[0], lng: loc[1]},
+                    map: map,
+                    title: track
+                })
+            }
+            else{
+                var marker = new google.maps.Marker({
+                    position: {lat: loc[0], lng: loc[1]},
+                    map: map,
+                    title: track,
+                    icon: icon
+                })
+            }
+
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
+            });
+        }
     </script>
 
 
